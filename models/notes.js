@@ -4,7 +4,7 @@ const noteSchema = new mongoose.Schema({
     title:String,
     description:String,
     catergory:String,
-    createdAt:{type:Date, default:new Date()},
+    createdAt:{type:Date, immutable:true, default:new Date()},
     tags:[{type:String}],
     creatorId:String,
 })
