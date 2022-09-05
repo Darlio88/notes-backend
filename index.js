@@ -17,8 +17,8 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(Express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use('/user',userRoutes);
-app.use('/note', noteRoutes)
+app.use('/api/user',userRoutes);
+app.use('/api/note', noteRoutes)
 
 
 

@@ -4,23 +4,23 @@ import bcrypt from 'bcryptjs'
 import User from '../models/users.js'
 
 
-
-export const getUsers = (req, res)=>{
-    res.send({users:User.find({})})
-}
-
 export const signinUser= async(req, res)=>{
-const {userEmail, password} = req.body
+try {
+    const {userEmail, password} = req.body
 const testUser = await User.findOne({userEmail:userEmail})
 if(!testUser) return res.status(404).send('The user does not exist')
 
 if(bcrypt.compareSync(password, testUser.passwordHash)) return res.status(200).send(testUser)
 res.status(404).send('Incorrect password or Email')
+} catch (error) {
+    res.status(404).send(error)
+}
 }
 
 export async function  signupUser(req, res){
-    console.log(req.body)
+    try {
     const {userEmail, userName, password } = req.body;
+    console.log({...req.body})
     const testUser = await User.findOne({userEmail:userEmail})
     if(testUser) return res.status(404).send('user already exists')
     var salt = bcrypt.genSaltSync(10);
@@ -28,12 +28,29 @@ export async function  signupUser(req, res){
     const newUser = new User({userName,userEmail, passwordHash})
     await newUser.save()
     res.status(200).send(newUser)
+    } catch (error) {
+        res.status(404).send({message:error.message})
+    }
 }
 
-export const updateUser=(req, res)=>{
-    
+export const updateUser= async (req, res)=>{
+    try {
+        const {id} = req.params
+        const updatedUser = await User.findByIdAndUpdate(id, req.body)
+        res.status(200).send("user details successfully updated")
+    } catch (error) {
+        res.status(404).send(error)
+    }
 }
 
-export const deleteUser=(req, res)=>{
+export const deleteUser= async (req, res)=>{
     
+    try {
+        const {id} = req.params
+        await User.findByIdAndDelete(id)
+        res.status(200).send("the user has been deleted sucesfully")
+    } catch (error) {
+        res.status(404).send(error)
+    }
+  
 }

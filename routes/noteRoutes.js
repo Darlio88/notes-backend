@@ -10,10 +10,10 @@ route.post('/create-note', createNote)
 
 
 //updating a note
-route.patch("/update-note",updateNote)
+route.patch("/update-note/:id",updateNote)
 
 //deleting a note 
-route.delete('/delete-note', deleteNote)
+route.delete('/delete-note/:id', deleteNote)
 
 
 export default route
