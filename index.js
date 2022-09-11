@@ -10,6 +10,7 @@ import { config } from "dotenv";
 import userRoutes from './routes/userRoutes.js'
 import noteRoutes from './routes/noteRoutes.js'
 
+
 //creating an app instance
 const app= Express()
 config()

@@ -18,4 +18,6 @@ route.delete('/delete-note/:id', deleteNote)
 //get all users notes
 route.get("/get-notes/:creatorId", userNotes )
 
+
+
 export default route
