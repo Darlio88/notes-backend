@@ -3,6 +3,7 @@ import Express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
+import compression from "compression";
 import { config } from "dotenv";
 
 
@@ -15,7 +16,8 @@ import noteRoutes from './routes/noteRoutes.js'
 const app= Express()
 config()
 app.use(cors())
-app.use(bodyParser.json())
+app.use(compression())
+// app.use(bodyParser.json())
 app.use(Express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/api/user',userRoutes);
